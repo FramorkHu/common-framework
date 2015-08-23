@@ -13,7 +13,7 @@ public class ClassHelper {
 
     private static final String BASE_PACKAGE = ConfigHelper.getString("base.package");
 
-    public List<Class<?>> getClassListByAnnotation(Class<? extends Annotation> annotationClass){
+    public static List<Class<?>> getClassListByAnnotation(Class<? extends Annotation> annotationClass){
         return ClassUtil.getClassListByAnnotation(BASE_PACKAGE, annotationClass);
     }
 
