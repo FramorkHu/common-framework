@@ -1,4 +1,4 @@
-package org.commonframwork.annotation;
+package org.commonframwork.web.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

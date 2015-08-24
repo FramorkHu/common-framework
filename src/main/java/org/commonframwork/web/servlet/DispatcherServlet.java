@@ -1,15 +1,13 @@
 package org.commonframwork.web.servlet;
 
-import org.commonframwork.annotation.Action;
 import org.commonframwork.core.Constant;
 import org.commonframwork.util.StringUtil;
+import org.commonframwork.util.WebUtil;
+import org.commonframwork.web.pojo.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.jws.WebService;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -68,11 +66,15 @@ public class DispatcherServlet extends HttpServlet {
                 try {
                     //创建action实例
                     Object actionInstance = actionClass.newInstance();
+                    method.setAccessible(true);
                     //调用action相关方法
                     Object actionResult = method.invoke(actionInstance,paramList.toArray());
-                    //if (actionResult instanceof Req)
+                    if (actionResult instanceof Result){
+                        Result result = (Result) actionResult;
+                        WebUtil.writeJSONToResponse(resp, result);
+                    }
                 }catch (Exception e){
-
+                    LOGGER.error("");
                 }
             }
         }

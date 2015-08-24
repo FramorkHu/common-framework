@@ -1,10 +1,9 @@
 package org.commonframwork.web.servlet;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.StringUtils;
-import org.commonframwork.annotation.Action;
-import org.commonframwork.annotation.Request;
+import org.commonframwork.core.ClassHelper;
+import org.commonframwork.web.annotation.Action;
+import org.commonframwork.web.annotation.Request;
 import org.commonframwork.util.StringUtil;
 
 import java.lang.reflect.Method;
