@@ -37,6 +37,11 @@ public class BeanHelper {
 
     }
 
+    public static <T> T getBean(Class<?> clz){
+
+        return (T)beanMap.get(clz);
+    }
+
     public static Map<Class<?>, Object> getBeanMap() {
         return beanMap;
     }

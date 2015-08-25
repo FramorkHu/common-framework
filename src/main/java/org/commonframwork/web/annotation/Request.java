@@ -8,6 +8,8 @@ import java.lang.annotation.Target;
 /**
  * Created by huyan on 15/8/23.
  */
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
 public @interface Request {
 
     String value();

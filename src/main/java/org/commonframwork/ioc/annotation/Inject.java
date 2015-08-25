@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 /**
  * Created by huyan on 2015/8/24.
  */
-@Target(ElementType.TYPE)
+@Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Inject {
 

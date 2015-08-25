@@ -1,9 +1,9 @@
 package org.commonframwork.web.servlet;
 
-import org.apache.commons.lang.ArrayUtils;
-import org.commonframwork.core.ClassHelper;
 import org.commonframwork.web.annotation.Action;
 import org.commonframwork.web.annotation.Request;
+import org.apache.commons.lang.ArrayUtils;
+import org.commonframwork.core.ClassHelper;
 import org.commonframwork.util.StringUtil;
 
 import java.lang.reflect.Method;
@@ -29,7 +29,9 @@ public class ActionHelper {
             if (!ArrayUtils.isEmpty(methods)){
                 for (Method actionMethod : methods){
                     //判断当前action有没有Request注解
-                    if (actionMethod.isAnnotationPresent(Request.class)){
+                    boolean flag = actionMethod.isAnnotationPresent(Request.class);
+                    if (flag){
+
                         String url = actionMethod.getAnnotation(Request.class).value();
                         String[] urlArray = url.split(":");
                         if (!ArrayUtils.isEmpty(urlArray)){
@@ -47,9 +49,6 @@ public class ActionHelper {
         }
     }
 
-    private static void handleActionMethod(Method actionMethod){
-
-    }
 
     public static Map<Requester, ActionInfo> getActionMap(){
 

@@ -28,7 +28,7 @@ public class IocHelper {
                 Class<?> beanClass = entry.getKey();
                 Object beanInstance = entry.getValue();
 
-                Field[] fields = beanClass.getFields();
+                Field[] fields = beanClass.getDeclaredFields();
 
                 for (Field field: fields){
                     if (field.isAnnotationPresent(Inject.class)){

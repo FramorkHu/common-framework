@@ -1,12 +1,15 @@
 package org.commonframwork.web.servlet;
 
 import org.commonframwork.core.Constant;
+import org.commonframwork.ioc.BeanHelper;
+import org.commonframwork.ioc.IocHelper;
 import org.commonframwork.util.StringUtil;
 import org.commonframwork.util.WebUtil;
 import org.commonframwork.web.pojo.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,11 +30,19 @@ import java.util.regex.Pattern;
 public class DispatcherServlet extends HttpServlet {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DispatcherServlet.class);
+
+
+
     @Override
     public void service(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException{
 
-
+        Class aClass = IocHelper.class;
+        try {
+            Class.forName(aClass.getName(), true, Thread.currentThread().getContextClassLoader());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         req.setCharacterEncoding(Constant.UTF_8);
         String currentRequestMethod = req.getMethod();
         String currentRequestURL = req.getPathInfo();
@@ -51,10 +62,10 @@ public class DispatcherServlet extends HttpServlet {
                 ActionInfo actionInfo = actionInfoEntry.getValue();
                 //初始化action方法参数列表
                 List<Object> paramList = new ArrayList<Object>();
-                for (int i=0; i<matcher.groupCount(); i++){
+                for (int i=1; i<=matcher.groupCount(); i++){
                     String param = matcher.group(i);
                     if (StringUtil.isDigits(param)){
-                        paramList.add(Long.parseLong(param));
+                        paramList.add(Integer.parseInt(param));
                     } else {
                         paramList.add(param);
                     }
@@ -65,7 +76,7 @@ public class DispatcherServlet extends HttpServlet {
                 Method method = actionInfo.getActionMethod();
                 try {
                     //创建action实例
-                    Object actionInstance = actionClass.newInstance();
+                    Object actionInstance = BeanHelper.getBean(actionClass);
                     method.setAccessible(true);
                     //调用action相关方法
                     Object actionResult = method.invoke(actionInstance,paramList.toArray());
@@ -74,7 +85,8 @@ public class DispatcherServlet extends HttpServlet {
                         WebUtil.writeJSONToResponse(resp, result);
                     }
                 }catch (Exception e){
-                    LOGGER.error("");
+                    e.printStackTrace();
+                    LOGGER.error("",e);
                 }
             }
         }
