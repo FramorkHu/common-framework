@@ -22,4 +22,8 @@ public class ClassHelper {
         return ClassUtil.getClassListBySuper(BASE_PACKAGE, superClass);
     }
 
+    public static Class<?> loadClass(Class<?> clz){
+        return ClassUtil.loadClass(clz.getName(),true);
+    }
+
 }
