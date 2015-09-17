@@ -178,6 +178,7 @@ public class ClassUtil {
                             addClass(classList, subPackagePath, subPackageName, true);
                         }
                     }
+
                 }
             }
         } catch (Exception e) {
@@ -186,7 +187,7 @@ public class ClassUtil {
         }
     }
 
-    private static File[] getClassFiles(String packagePath) {
+    public static File[] getClassFiles(String packagePath) {
         return new File(packagePath).listFiles(new FileFilter() {
             @Override
             public boolean accept(File file) {
@@ -195,7 +196,7 @@ public class ClassUtil {
         });
     }
 
-    private static String getClassName(String packageName, String fileName) {
+    public static String getClassName(String packageName, String fileName) {
         String className = fileName.substring(0, fileName.lastIndexOf("."));
         if (StringUtils.isNotEmpty(packageName)) {
             className = packageName + "." + className;
@@ -203,7 +204,7 @@ public class ClassUtil {
         return className;
     }
 
-    private static String getSubPackagePath(String packagePath, String filePath) {
+    public static String getSubPackagePath(String packagePath, String filePath) {
         String subPackagePath = filePath;
         if (StringUtils.isNotEmpty(packagePath)) {
             subPackagePath = packagePath + "/" + subPackagePath;
@@ -211,7 +212,7 @@ public class ClassUtil {
         return subPackagePath;
     }
 
-    private static String getSubPackageName(String packageName, String filePath) {
+    public static String getSubPackageName(String packageName, String filePath) {
         String subPackageName = filePath;
         if (StringUtils.isNotEmpty(packageName)) {
             subPackageName = packageName + "." + subPackageName;
