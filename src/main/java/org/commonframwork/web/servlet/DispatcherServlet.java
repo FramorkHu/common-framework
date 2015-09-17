@@ -27,11 +27,12 @@ import java.util.regex.Pattern;
 /**
  * Created by huyan on 2015/8/21.
  */
-@WebServlet("/*")
+@WebServlet(value = "/*", loadOnStartup = 0)
 public class DispatcherServlet extends HttpServlet {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DispatcherServlet.class);
     private static final Map<Requester, ActionInfo> ACTION_INFO_MAP = ActionHelper.getActionMap();
+
 
     @Override
     public void service(HttpServletRequest req, HttpServletResponse resp)
